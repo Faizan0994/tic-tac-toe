@@ -51,9 +51,37 @@ function Cell() {
     };
 }
 
-const createUser = function(name, mark){
-	return {name: name, mark: mark};
+const createUser = function(name, char){
+	return {name: name, char: char};
 }
 
 const user = createUser("user", "o");
 const AI = createUser("AI", "x");
+
+function gameController(playerOne, playerTwo){
+	let players = [playerOne, playerTwo];
+	const board = createGameboard();
+	let activePlayer = players[1];
+	const switchPlayerTurn = () => {
+		activePlayer = activePlayer === players[0]? players[1]: players[0];
+	};
+	const getActivePlayer = () => activePlayer;
+
+	const printNewRound = () => {
+		board.printBoard();
+		console.log(`${getActivePlayer().name}'s turn.`);
+	};
+
+	const takeTurn = (row, column) => {
+		board.mark(getActivePlayer().char, row, column);
+		//Next player's turn
+		switchPlayerTurn();
+    	printNewRound();//refresh the board
+	}
+
+	printNewRound(); //Start the game
+
+	return {takeTurn, getActivePlayer};
+}
+
+const game = gameController(user, AI);
