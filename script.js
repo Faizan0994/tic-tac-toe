@@ -13,8 +13,28 @@ function createGameboard() {
       }
     }
 
-    return board;
+    // This will be the method of getting the entire board that our
+    // UI will eventually need to render it.
+    const getBoard = () => board;
+
+    const mark = (player, row, column) => {
+        board[row-1][column-1].addToken(player);
+    };
+
+    // This method will be used to print our board to the console.
+    // It is helpful to see what the board looks like after each turn as we play,
+    // but we won't need it after we build our UI
+    const printBoard = () => {
+    	const boardWithCellValues = board.map((row) => row.map((cell) => cell.getValue()))
+    	console.log(boardWithCellValues);
+    };
+
+    // Here, we provide an interface for the rest of our
+    // application to interact with the board
+    return { getBoard, mark, printBoard };
 }
+
+const board = createGameboard();
 
 function Cell() {
     let value = 0;
