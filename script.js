@@ -34,8 +34,6 @@ function createGameboard() {
     return { getBoard, mark, printBoard };
 }
 
-const board = createGameboard();
-
 function Cell() {
     let value = 0;
   
@@ -52,3 +50,10 @@ function Cell() {
       getValue
     };
 }
+
+const createUser = function(name, mark){
+	return {name: name, mark: mark};
+}
+
+const user = createUser("user", "o");
+const AI = createUser("AI", "x");
