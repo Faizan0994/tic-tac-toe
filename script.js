@@ -117,6 +117,10 @@ function gameController(playerOne, playerTwo){
   };
 
 	const takeTurn = (row, column) => {
+    if(board.getBoard()[row-1][column-1].getValue() !== 0){
+      console.log("invalid move");
+      return;
+    }
 		board.mark(getActivePlayer().char, row, column);
 		//Next player's turn
 		switchPlayerTurn();
