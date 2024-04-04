@@ -72,12 +72,56 @@ function gameController(playerOne, playerTwo){
 		console.log(`${getActivePlayer().name}'s turn.`);
 	};
 
+  const gameOver = (arr) => {
+    function areSame(arr){//Analyzes rows
+        let first = arr[0].getValue();
+        for (let i=1; i<arr.length; i++)
+           if (arr[i].getValue() != first)
+              return false;
+        return true;
+    }
+
+    function checkColumnEquality(matrix, columnIndex) {//Analyzes columns
+      // Get the first element of the column
+      const firstElement = matrix[0][columnIndex].getValue();
+    
+      // Iterate through the column starting from the second element
+      for (let i = 1; i < matrix.length; i++) {
+          // If any element is different from the first element, or is zero, return false
+          if ((matrix[i][columnIndex].getValue() !== firstElement) || matrix[i][columnIndex].getValue() === 0) {
+              return false;
+          }
+      }
+    
+      // If all elements are the same, return true
+      return true;
+    }
+
+
+    //Check rows
+    if((areSame(arr[0])&&(arr[0][0].getValue()!==0)) || (areSame(arr[1])&&(arr[1][0].getValue()!==0)) || (areSame(arr[2])&&(arr[2][0].getValue()!==0)))
+    return true;
+
+    //Check columns
+    if(checkColumnEquality(arr,0) || checkColumnEquality(arr,1) || checkColumnEquality(arr,2))
+    return true;
+
+    //Check diagonals
+    if((arr[0][0].getValue()!==0) && (arr[0][0].getValue() === arr[1][1].getValue()) && (arr[0][0].getValue() === arr[2][2].getValue()))
+    return true;
+
+    if((arr[0][2].getValue()!==0) && (arr[0][2].getValue() === arr[1][1].getValue()) && (arr[0][2].getValue() === arr[2][0].getValue()))
+    return true;
+
+    return false;
+  };
+
 	const takeTurn = (row, column) => {
 		board.mark(getActivePlayer().char, row, column);
 		//Next player's turn
 		switchPlayerTurn();
-    	printNewRound();//refresh the board
-	}
+    printNewRound();//refresh the board
+  }
 
 	printNewRound(); //Start the game
 
