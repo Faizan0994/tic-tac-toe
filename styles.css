@@ -2,3 +2,104 @@
     padding: 0;
     margin: 0;
 }
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /*background-color: #001d3d;*/
+    background-color: black;
+    color: white;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.header h1{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.6vh;
+    flex: 1;
+    border: 1px solid white;
+    /*background-color: #000814;*/
+}
+
+.main-section {
+    display: flex;
+    flex: 4;
+    padding: 10px 0;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid white;
+}
+
+.gameboard {
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    width: 40vh;
+}
+
+.row {
+    display: flex;
+    justify-content: stretch;
+    flex: 1;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11vh;
+    border: 1px solid white;
+    flex: 1;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3,1fr);
+    flex: 2;
+    justify-items: center;
+    align-items: center;
+    border: 1px solid white;
+}
+
+.user, .ai {
+    font-size: 5vh;
+    display: flex;
+    gap: 12px;
+}
+
+.user{
+    grid-row: 1 / span 1;
+    grid-column: 1 / span 1;
+    color: #2ec4b6;
+}
+
+.ai{
+    grid-row: 1 / span 1;
+    grid-column: 3 / -1;
+    /*color: #ffc300;*/
+    color: red;
+}
+
+button {
+    grid-row: 2 / -1;
+    grid-column: 1 / -1;
+    width: 16vh;
+    height: 8vh;
+    background-color: black;
+    border-radius: 8px;
+    font-size: 3vh;
+    border: 1px solid white;
+    color: white;
+}
+
+.footer {
+    flex: 1;
+    border: 1px solid white;
+}
