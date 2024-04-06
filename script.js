@@ -160,9 +160,13 @@ function gameController(playerOne, playerTwo){
 			if(getActivePlayer().name === "user") {
 				header.textContent = "You Win!";
 				header.style.color = "#2ec4b6";
+				userScore++;
+				document.querySelector('.user-score').textContent = userScore;
 			} else if(getActivePlayer().name === "AI") {
 				header.textContent = "AI Wins!";
 				header.style.color = "red";
+				AIScore++;
+				document.querySelector('.ai-score').textContent = AIScore;
 			}
 			controls.appendChild(playAgainButton);
 			return;
@@ -180,6 +184,9 @@ function gameController(playerOne, playerTwo){
 
 	return {takeTurn, getActivePlayer, board};
 }
+
+var userScore = 0;
+var AIScore = 0;
 
 //const game = gameController(user, AI);
 
