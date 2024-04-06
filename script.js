@@ -116,6 +116,18 @@ function gameController(playerOne, playerTwo){
     return false;
   };
 
+  const displayNewRound = function(){
+	if(board.getBoard()[0][0].getValue()!==0) document.getElementById('1').textContent = board.getBoard()[0][0].getValue();
+	if(board.getBoard()[0][1].getValue()!==0) document.getElementById('2').textContent = board.getBoard()[0][1].getValue();
+	if(board.getBoard()[0][2].getValue()!==0) document.getElementById('3').textContent = board.getBoard()[0][2].getValue();
+	if(board.getBoard()[1][0].getValue()!==0) document.getElementById('4').textContent = board.getBoard()[1][0].getValue();
+	if(board.getBoard()[1][1].getValue()!==0) document.getElementById('5').textContent = board.getBoard()[1][1].getValue();
+	if(board.getBoard()[1][2].getValue()!==0) document.getElementById('6').textContent = board.getBoard()[1][2].getValue();
+	if(board.getBoard()[2][0].getValue()!==0) document.getElementById('7').textContent = board.getBoard()[2][0].getValue();
+	if(board.getBoard()[2][1].getValue()!==0) document.getElementById('8').textContent = board.getBoard()[2][1].getValue();
+	if(board.getBoard()[2][2].getValue()!==0) document.getElementById('9').textContent = board.getBoard()[2][2].getValue();
+  };
+
 	const takeTurn = (row, column) => {
     if(board.getBoard()[row-1][column-1].getValue() !== 0){
       console.log("invalid move");
@@ -125,11 +137,12 @@ function gameController(playerOne, playerTwo){
 		//Next player's turn
 		switchPlayerTurn();
     printNewRound();//refresh the board
+	displayNewRound();
   }
 
 	printNewRound(); //Start the game
 
-	return {takeTurn, getActivePlayer};
+	return {takeTurn, getActivePlayer, board};
 }
 
 //const game = gameController(user, AI);
@@ -205,6 +218,21 @@ const gameSetup = function(){
 	}
 
 	buildGameboard();
+	const game = gameController(user, AI);
+	const board = game.board.getBoard();
+	const cells = document.querySelectorAll('.cell');
+	
+	document.addEventListener('click', (e) => {//To take turn by clicking
+		if(e.target.id==='1') game.takeTurn(1,1);
+		else if(e.target.id==='2') game.takeTurn(1,2);
+		else if(e.target.id==='3') game.takeTurn(1,3);
+		else if(e.target.id==='4') game.takeTurn(2,1);
+		else if(e.target.id==='5') game.takeTurn(2,2);
+		else if(e.target.id==='6') game.takeTurn(2,3);
+		else if(e.target.id==='7') game.takeTurn(3,1);
+		else if(e.target.id==='8') game.takeTurn(3,2);
+		else if(e.target.id==='9') game.takeTurn(3,3);
+	});
 }
 
 document.addEventListener('click', (e) => {
