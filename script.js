@@ -133,16 +133,22 @@ function gameController(playerOne, playerTwo){
   };
 
 	const takeTurn = (row, column) => {
+	if(!gameOver(board.getBoard())){
     if(board.getBoard()[row-1][column-1].getValue() !== 0){
       console.log("invalid move");
       return;
     }
+
 		board.mark(getActivePlayer().char, row, column);
+		printNewRound();//refresh the board
+		displayNewRound();
+		if(gameOver(board.getBoard())){
+			console.log('finished');
+			return;
+		}
 		//Next player's turn
 		switchPlayerTurn();
-    printNewRound();//refresh the board
-	displayNewRound();
-  }
+  }}
 
 	printNewRound(); //Start the game
 
