@@ -55,8 +55,8 @@ const createUser = function(name, char){
 	return {name: name, char: char};
 }
 
-const user = createUser("user", "o");
-const AI = createUser("AI", "x");
+const user = createUser("user", "O");
+const AI = createUser("AI", "X");
 
 function gameController(playerOne, playerTwo){
 	let players = [playerOne, playerTwo];
