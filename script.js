@@ -132,6 +132,19 @@ function gameController(playerOne, playerTwo){
 	});
   };
 
+  const isBoardFull = () => {//For checking draw conditions
+    const boardState = board.getBoard();
+    for (let i = 0; i < boardState.length; i++) {
+        for (let j = 0; j < boardState[i].length; j++) {
+            if (boardState[i][j].getValue() === 0) {
+                return false; // If any cell has a value of 0, the board is not full
+            }
+        }
+    }
+    return true; // If no cell has a value of 0, the board is full
+  };
+
+
 	const takeTurn = (row, column) => {
 	if(!gameOver(board.getBoard())){
     if(board.getBoard()[row-1][column-1].getValue() !== 0){
@@ -152,6 +165,10 @@ function gameController(playerOne, playerTwo){
 				header.style.color = "red";
 			}
 			return;
+		}
+
+		if(isBoardFull()){
+			header.textContent = "Draw"
 		}
 		//Next player's turn
 		switchPlayerTurn();
