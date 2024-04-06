@@ -126,6 +126,10 @@ function gameController(playerOne, playerTwo){
 	if(board.getBoard()[2][0].getValue()!==0) document.getElementById('7').textContent = board.getBoard()[2][0].getValue();
 	if(board.getBoard()[2][1].getValue()!==0) document.getElementById('8').textContent = board.getBoard()[2][1].getValue();
 	if(board.getBoard()[2][2].getValue()!==0) document.getElementById('9').textContent = board.getBoard()[2][2].getValue();
+
+	document.querySelectorAll('.cell').forEach(cell => {
+		cell.textContent === user.char ? cell.style.color = "#2ec4b6" : cell.style.color = "red";
+	});
   };
 
 	const takeTurn = (row, column) => {
