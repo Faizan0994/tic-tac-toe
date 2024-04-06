@@ -132,4 +132,81 @@ function gameController(playerOne, playerTwo){
 	return {takeTurn, getActivePlayer};
 }
 
-const game = gameController(user, AI);
+//const game = gameController(user, AI);
+
+///////////////////////////////////////////////////////////
+//Linking DOM to the game
+///////////////////////////////////////////////////////////
+const startGame = document.querySelector('.start-game');
+const mainSection = document.querySelector('.main-section');
+const controls = document.querySelector('.controls');
+
+const buildGameboard = function(){//Create gameboard on DOM
+	const gameBoard = document.createElement('div');
+	gameBoard.classList.add('gameboard');
+
+	const row1 = document.createElement('div');
+	row1.classList.add('row');
+	row1.setAttribute('id', 'R1');
+	const cell1 = document.createElement('div');
+	cell1.classList.add('cell');
+	cell1.setAttribute('id', '1');
+	row1.appendChild(cell1);
+	const cell2 = document.createElement('div');
+	cell2.classList.add('cell');
+	cell2.setAttribute('id', '2');
+	row1.appendChild(cell2);
+	const cell3 = document.createElement('div');
+	cell3.classList.add('cell');
+	cell3.setAttribute('id', '3');
+	row1.appendChild(cell3);
+	gameBoard.appendChild(row1);
+
+	const row2 = document.createElement('div');
+	row2.classList.add('row');
+	row2.setAttribute('id', 'R2');
+	const cell4 = document.createElement('div');
+	cell4.classList.add('cell');
+	cell4.setAttribute('id', '4');
+	row2.appendChild(cell4);
+	const cell5 = document.createElement('div');
+	cell5.classList.add('cell');
+	cell5.setAttribute('id', '5');
+	row2.appendChild(cell5);
+	const cell6 = document.createElement('div');
+	cell6.classList.add('cell');
+	cell6.setAttribute('id', '6');
+	row2.appendChild(cell6);
+	gameBoard.appendChild(row2);
+
+	const row3 = document.createElement('div');
+	row3.classList.add('row');
+	row3.setAttribute('id', 'R3');
+	const cell7 = document.createElement('div');
+	cell7.classList.add('cell');
+	cell7.setAttribute('id', '7');
+	row3.appendChild(cell7);
+	const cell8 = document.createElement('div');
+	cell8.classList.add('cell');
+	cell8.setAttribute('id', '8');
+	row3.appendChild(cell8);
+	const cell9 = document.createElement('div');
+	cell9.classList.add('cell');
+	cell9.setAttribute('id', '9');
+	row3.appendChild(cell9);
+	gameBoard.appendChild(row3);
+
+	mainSection.appendChild(gameBoard);
+}
+
+const gameSetup = function(){
+	while(mainSection.firstChild){//To remove all content
+		mainSection.removeChild(mainSection.lastChild);
+	}
+
+	buildGameboard();
+}
+
+document.addEventListener('click', (e) => {
+	if(e.target = startGame) gameSetup();
+});
