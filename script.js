@@ -208,5 +208,5 @@ const gameSetup = function(){
 }
 
 document.addEventListener('click', (e) => {
-	if(e.target = startGame) gameSetup();
+	if(e.target === startGame) gameSetup();
 });
