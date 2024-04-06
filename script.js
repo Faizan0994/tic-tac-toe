@@ -144,6 +144,13 @@ function gameController(playerOne, playerTwo){
 		displayNewRound();
 		if(gameOver(board.getBoard())){
 			console.log('finished');
+			if(getActivePlayer().name === "user") {
+				header.textContent = "You Win!";
+				header.style.color = "#2ec4b6";
+			} else if(getActivePlayer().name === "AI") {
+				header.textContent = "AI Wins!";
+				header.style.color = "red";
+			}
 			return;
 		}
 		//Next player's turn
@@ -163,8 +170,10 @@ function gameController(playerOne, playerTwo){
 const startGame = document.querySelector('.start-game');
 const mainSection = document.querySelector('.main-section');
 const controls = document.querySelector('.controls');
+const header = document.querySelector('h1');
 
 const buildGameboard = function(){//Create gameboard on DOM
+	header.textContent = "TIC TAC TOE";
 	const gameBoard = document.createElement('div');
 	gameBoard.classList.add('gameboard');
 
