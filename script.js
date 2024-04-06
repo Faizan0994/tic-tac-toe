@@ -164,11 +164,13 @@ function gameController(playerOne, playerTwo){
 				header.textContent = "AI Wins!";
 				header.style.color = "red";
 			}
+			controls.appendChild(playAgainButton);
 			return;
 		}
 
 		if(isBoardFull()){
 			header.textContent = "Draw"
+			controls.appendChild(playAgainButton);
 		}
 		//Next player's turn
 		switchPlayerTurn();
@@ -188,6 +190,8 @@ const startGame = document.querySelector('.start-game');
 const mainSection = document.querySelector('.main-section');
 const controls = document.querySelector('.controls');
 const header = document.querySelector('h1');
+const playAgainButton = document.createElement('button');
+playAgainButton.textContent = "Play Again"
 
 const buildGameboard = function(){//Create gameboard on DOM
 	header.textContent = "TIC TAC TOE";
@@ -272,5 +276,5 @@ const gameSetup = function(){
 }
 
 document.addEventListener('click', (e) => {
-	if(e.target === startGame) gameSetup();
+	if(e.target === startGame || e.target === playAgainButton) gameSetup();
 });
