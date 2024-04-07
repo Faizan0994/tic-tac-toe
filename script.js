@@ -62,6 +62,8 @@ function gameController(playerOne, playerTwo){
 	let players = [playerOne, playerTwo];
 	const board = createGameboard();
 	let activePlayer = players[1];
+	let winningLine = null;
+	var winType = "row";
 	const switchPlayerTurn = () => {
 		activePlayer = activePlayer === players[0]? players[1]: players[0];
 	};
@@ -100,18 +102,18 @@ function gameController(playerOne, playerTwo){
 
     //Check rows
     if((areSame(arr[0])&&(arr[0][0].getValue()!==0)) || (areSame(arr[1])&&(arr[1][0].getValue()!==0)) || (areSame(arr[2])&&(arr[2][0].getValue()!==0)))
-    return true;
+    {winType = "row"; return true;}
 
     //Check columns
     if(checkColumnEquality(arr,0) || checkColumnEquality(arr,1) || checkColumnEquality(arr,2))
-    return true;
+    {winType = "column"; return true;}
 
     //Check diagonals
     if((arr[0][0].getValue()!==0) && (arr[0][0].getValue() === arr[1][1].getValue()) && (arr[0][0].getValue() === arr[2][2].getValue()))
-    return true;
+    {winType = "anti-diagonal"; return true;}
 
     if((arr[0][2].getValue()!==0) && (arr[0][2].getValue() === arr[1][1].getValue()) && (arr[0][2].getValue() === arr[2][0].getValue()))
-    return true;
+    {winType = "diagonal"; return true;}
 
     return false;
   };
@@ -156,18 +158,23 @@ function gameController(playerOne, playerTwo){
 		printNewRound();//refresh the board
 		displayNewRound();
 		if(gameOver(board.getBoard())){
+			let winnerColor;
 			console.log('finished');
 			if(getActivePlayer().name === "user") {
 				header.textContent = "You Win!";
 				header.style.color = "#2ec4b6";
+				winnerColor = "#2ec4b6";
 				userScore++;
 				document.querySelector('.user-score').textContent = userScore;
 			} else if(getActivePlayer().name === "AI") {
 				header.textContent = "AI Wins!";
 				header.style.color = "red";
+				winnerColor = "red";
 				AIScore++;
 				document.querySelector('.ai-score').textContent = AIScore;
 			}
+			winningLine = findWinningLine(board.getBoard());
+			drawWinningLine(winningLine, winnerColor);
 			controls.appendChild(playAgainButton);
 			return;
 		}
@@ -179,6 +186,63 @@ function gameController(playerOne, playerTwo){
 		//Next player's turn
 		switchPlayerTurn();
   }}
+
+  const findWinningLine = (boardState) => {
+    // Check rows for a winning line
+    for (let row = 0; row < 3; row++) {
+        if (boardState[row][0].getValue() !== 0 &&
+            boardState[row][0].getValue() === boardState[row][1].getValue() &&
+            boardState[row][0].getValue() === boardState[row][2].getValue()) {
+            return [row, 0, row, 2]; // Winning line found in this row
+        }
+    }
+
+    // Check columns for a winning line
+    for (let col = 0; col < 3; col++) {
+        if (boardState[0][col].getValue() !== 0 &&
+            boardState[0][col].getValue() === boardState[1][col].getValue() &&
+            boardState[0][col].getValue() === boardState[2][col].getValue()) {
+            return [0, col, 2, col]; // Winning line found in this column
+        }
+    }
+
+    // Check diagonals for a winning line
+    if (boardState[0][0].getValue() !== 0 &&
+        boardState[0][0].getValue() === boardState[1][1].getValue() &&
+        boardState[0][0].getValue() === boardState[2][2].getValue()) {
+        return [0, 0, 2, 2]; // Winning line found in the main diagonal
+    }
+
+    if (boardState[0][2].getValue() !== 0 &&
+        boardState[0][2].getValue() === boardState[1][1].getValue() &&
+        boardState[0][2].getValue() === boardState[2][0].getValue()) {
+        return [0, 2, 2, 0]; // Winning line found in the anti-diagonal
+    }
+
+    return null; // No winning line found
+  };
+
+  const drawWinningLine = (line, winnerColor) => {
+    const [startRow, startColumn, endRow, endColumn] = line;
+    const cells = document.querySelectorAll('.cell');
+    cells.forEach(cell => {
+        const row = parseInt(cell.dataset.row);
+        const column = parseInt(cell.dataset.column);
+        if (row-1 === startRow && column-1 === startColumn) {
+			const strike = document.createElement('div');
+			strike.style.backgroundColor = winnerColor;
+            strike.style.setProperty('--start-row', startRow);
+            strike.style.setProperty('--start-column', startColumn);
+            strike.style.setProperty('--end-row', endRow);
+            strike.style.setProperty('--end-column', endColumn);
+			if(winType === "row") strike.classList.add('row-strike');
+			else if(winType === "column") strike.classList.add('column-strike');
+			else if(winType === "diagonal") strike.classList.add('diagonal-strike');
+			else if(winType === "anti-diagonal") strike.classList.add('anti-diagonal-strike');
+            cell.appendChild(strike);
+        }
+    });
+  };
 
 	printNewRound(); //Start the game
 
