@@ -264,6 +264,7 @@ const gameSetup = function(){
 	while(mainSection.firstChild){//To remove all content
 		mainSection.removeChild(mainSection.lastChild);
 	}
+	if(controls.contains(playAgainButton)) controls.removeChild(playAgainButton);
 
 	buildGameboard();
 	const game = gameController(user, AI);
