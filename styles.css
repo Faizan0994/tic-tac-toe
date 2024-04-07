@@ -57,6 +57,7 @@ body {
     border: 1px solid white;
     flex: 1;
     transition: font-size 0.1s;
+    position: relative;
 }
 
 .controls {
@@ -115,4 +116,38 @@ button:hover, .cell:hover {
 
 .selected {
     font-size: 11vh;
+}
+
+.row-strike {
+    position: absolute;
+    height: 5%;
+    width: calc((var(--end-column) - var(--start-column) + 1) * 100%);
+    left: calc(var(--start-column) * 33.33%); /* Adjust left position */
+    top: 50%; /* Adjust top position */
+}
+
+.column-strike {
+    position: absolute;
+    height: calc((var(--end-row) - var(--start-row) + 1) * 100%);
+    width: 5%;
+    left: 50%;
+    top: calc(var(--start-row) * 33.33%);
+}
+
+.anti-diagonal-strike {
+    position: absolute;
+    height: calc((var(--end-row) - var(--start-row) + 1) * 100%);
+    width: 5%;
+    left: 150%;
+    top: calc(var(--start-row) * 33.33%);
+    transform: rotate(-45deg);
+}
+
+.diagonal-strike {
+    position: absolute;
+    height: calc((var(--end-row) - var(--start-row) + 1) * 100%);
+    width: 5%;
+    top: calc(var(--start-row) * 33.33%);
+    right: 150%;
+    transform: rotate(45deg);
 }
