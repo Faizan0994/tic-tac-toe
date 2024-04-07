@@ -198,10 +198,11 @@ const mainSection = document.querySelector('.main-section');
 const controls = document.querySelector('.controls');
 const header = document.querySelector('h1');
 const playAgainButton = document.createElement('button');
-playAgainButton.textContent = "Play Again"
+playAgainButton.textContent = "Play Again";
 
 const buildGameboard = function(){//Create gameboard on DOM
 	header.textContent = "TIC TAC TOE";
+	header.style.color = "white";
 	const gameBoard = document.createElement('div');
 	gameBoard.classList.add('gameboard');
 
