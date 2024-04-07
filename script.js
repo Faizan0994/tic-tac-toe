@@ -287,3 +287,9 @@ const gameSetup = function(){
 document.addEventListener('click', (e) => {
 	if(e.target === startGame || e.target === playAgainButton) gameSetup();
 });
+
+document.addEventListener('click', (e) => {
+	if(e.target.classList.contains('cell')){
+		e.target.classList.add('selected');
+	}
+});

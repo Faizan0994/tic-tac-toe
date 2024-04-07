@@ -53,9 +53,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 11vh;
+    font-size: 1vh;
     border: 1px solid white;
     flex: 1;
+    transition: font-size 0.1s;
 }
 
 .controls {
@@ -110,4 +111,8 @@ button:hover, .cell:hover {
     justify-content: center;
     align-items: center;
     font-size: 2.5vh;
+}
+
+.selected {
+    font-size: 11vh;
 }
