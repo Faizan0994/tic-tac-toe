@@ -212,14 +212,20 @@ const buildGameboard = function(){//Create gameboard on DOM
 	const cell1 = document.createElement('div');
 	cell1.classList.add('cell');
 	cell1.setAttribute('id', '1');
+	cell1.setAttribute('data-row', '1');
+	cell1.setAttribute('data-column', '1');
 	row1.appendChild(cell1);
 	const cell2 = document.createElement('div');
 	cell2.classList.add('cell');
 	cell2.setAttribute('id', '2');
+	cell2.setAttribute('data-row', '1');
+	cell2.setAttribute('data-column', '2');
 	row1.appendChild(cell2);
 	const cell3 = document.createElement('div');
 	cell3.classList.add('cell');
 	cell3.setAttribute('id', '3');
+	cell3.setAttribute('data-row', '1');
+	cell3.setAttribute('data-column', '3');
 	row1.appendChild(cell3);
 	gameBoard.appendChild(row1);
 
@@ -229,14 +235,20 @@ const buildGameboard = function(){//Create gameboard on DOM
 	const cell4 = document.createElement('div');
 	cell4.classList.add('cell');
 	cell4.setAttribute('id', '4');
+	cell4.setAttribute('data-row', '2');
+	cell4.setAttribute('data-column', '1');
 	row2.appendChild(cell4);
 	const cell5 = document.createElement('div');
 	cell5.classList.add('cell');
 	cell5.setAttribute('id', '5');
+	cell5.setAttribute('data-row', '2');
+	cell5.setAttribute('data-column', '2');
 	row2.appendChild(cell5);
 	const cell6 = document.createElement('div');
 	cell6.classList.add('cell');
 	cell6.setAttribute('id', '6');
+	cell6.setAttribute('data-row', '2');
+	cell6.setAttribute('data-column', '3');
 	row2.appendChild(cell6);
 	gameBoard.appendChild(row2);
 
@@ -246,14 +258,20 @@ const buildGameboard = function(){//Create gameboard on DOM
 	const cell7 = document.createElement('div');
 	cell7.classList.add('cell');
 	cell7.setAttribute('id', '7');
+	cell7.setAttribute('data-row', '3');
+	cell7.setAttribute('data-column', '1');
 	row3.appendChild(cell7);
 	const cell8 = document.createElement('div');
 	cell8.classList.add('cell');
 	cell8.setAttribute('id', '8');
+	cell8.setAttribute('data-row', '3');
+	cell8.setAttribute('data-column', '2');
 	row3.appendChild(cell8);
 	const cell9 = document.createElement('div');
 	cell9.classList.add('cell');
 	cell9.setAttribute('id', '9');
+	cell9.setAttribute('data-row', '3');
+	cell9.setAttribute('data-column', '3');
 	row3.appendChild(cell9);
 	gameBoard.appendChild(row3);
 
