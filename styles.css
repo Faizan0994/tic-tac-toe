@@ -99,6 +99,10 @@ button {
     color: white;
 }
 
+button:hover, .cell:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
 .footer {
     flex: 1;
     border: 1px solid white;
