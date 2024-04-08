@@ -376,6 +376,8 @@ const buildGameboard = function(){//Create gameboard on DOM
 	mainSection.appendChild(gameBoard);
 }
 
+var startingPosition = 4;
+
 const gameSetup = function(){
 	while(mainSection.firstChild){//To remove all content
 		mainSection.removeChild(mainSection.lastChild);
@@ -387,7 +389,12 @@ const gameSetup = function(){
 	const board = game.board.getBoard();
 	const cells = document.querySelectorAll('.cell');
 
-	game.takeTurn(3,1);
+	//Select position for first turn(1 of 4 corners)
+	startingPosition = Math.floor(Math.random() * 4) + 1;
+	if(startingPosition===1) game.takeTurn(1,1);
+	else if(startingPosition===2) game.takeTurn(1,3);
+	else if(startingPosition===3) game.takeTurn(3,1);
+	else if(startingPosition===4) game.takeTurn(3,3);
 	
 	document.addEventListener('click', (e) => {//To take turn by clicking
 		if(game.getActivePlayer().name === "user") {
@@ -421,6 +428,7 @@ const getBestMove = function(board) {
 	}
 	console.log("Valid moves: " + validMoves);
 
+	if(startingPosition === 3){
 	if(validMoves === 7){
 		if(board[1][1].getValue() !== 0) return [0, 2];
 		else {
@@ -481,4 +489,188 @@ const getBestMove = function(board) {
 	}
 
 	return [0,0];
+	} else if(startingPosition === 1){
+		if(validMoves === 7){
+			if(board[1][1].getValue() !== 0) return [2, 2];
+			else {
+				if(board[0][1].getValue()===0 && board[0][2].getValue()===0) return [0,2];
+				else return  [2,0];
+			}
+		} else if(validMoves === 5){
+			if(board[1][1].getValue() === 'O' && board[2][2].getValue() === 'X') {
+				if(board[0][2].getValue() === 'O') return[2,0];
+				else if(board[2][0].getValue() === 'O') return [0,2];
+				else if(board[0][1].getValue() === 'O') return [2,1];
+				else if(board[2][1].getValue() === 'O') return [0,1];
+				else if(board[1][0].getValue() === 'O') return [1,2];
+				else if(board[1][2].getValue() === 'O') return [1,0];
+			} else {
+				if(board[0][2].getValue() === 'X'){
+					if(board[0][1].getValue() === 0) return [0,1];
+					else return [1,1];
+				} else if(board[2][0].getValue() === 'X'){
+					if(board[1][0].getValue() === 0) return [1,0];
+					else return [1,1];
+				}//
+			}
+		} else if(validMoves === 3){
+			if(board[1][1].getValue() === 'O'){
+				if(board[0][2].getValue() === 'X'){
+					if(board[0][1].getValue() === 0) return [0,1];
+					else if(board[1][2].getValue() === 0) return [1,2];
+				} else if(board[2][0].getValue() === 'X'){
+					if(board[1][0].getValue() === 0) return [1,0];
+					else if(board[2][1].getValue() === 0) return [2,1];
+				} else if(board[0][1].getValue() === 'X') {
+					if(board[0][2].getValue() === 0) return [0,2];
+					else return [2,0];
+				} else if(board[2][1].getValue() === 'X') {
+					if(board[2][0].getValue() === 0) return [2,0];
+					else return [0,2];
+				} else if(board[1][0].getValue() === 'X') {
+					if(board[2][0].getValue() === 0) return [2,0];
+					else return [0,2];
+				} else if(board[1][2].getValue() === 'X') {
+					if(board[0][2].getValue() === 0) return [0,2];
+					else return [2,0];
+				}
+			} else if(board[2][0].getValue()===0) return [2,0];
+			else if(board[0][2].getValue()===0) return [0,2];
+			else if(board[2][2].getValue()===0) return [2,2];
+			else {
+				if(board[0][2].getValue()==='O' && board[2][2].getValue()==='O') return [1,2];
+				else return [2,1];
+			}
+		} else if(validMoves === 1){
+			for(let i=0;i<=2;i++){
+				for(let j=0; j<=2;j++){
+					if(board[i][j].getValue()===0) return [i,j];
+				}
+			}
+		}
+	
+		return [0,0];
+	} else if(startingPosition === 2){
+		if(validMoves === 7){
+			if(board[1][1].getValue() !== 0) return [2,0];
+			else {
+				if(board[1][2].getValue()===0 && board[2][2].getValue()===0) return [2,2];
+				else return  [0,0];
+			}
+		} else if(validMoves === 5){
+			if(board[1][1].getValue() === 'O' && board[2][0].getValue() === 'X') {
+				if(board[0][0].getValue() === 'O') return[2,2];
+				else if(board[2][2].getValue() === 'O') return [0,0];
+				else if(board[0][1].getValue() === 'O') return [2,1];
+				else if(board[2][1].getValue() === 'O') return [0,1];
+				else if(board[1][0].getValue() === 'O') return [1,2];
+				else if(board[1][2].getValue() === 'O') return [1,0];
+			} else {
+				if(board[0][0].getValue() === 'X'){
+					if(board[0][1].getValue() === 0) return [0,1];
+					else return [1,1];
+				} else if(board[2][2].getValue() === 'X'){
+					if(board[1][2].getValue() === 0) return [1,2];
+					else return [1,1];
+				}//
+			}
+		} else if(validMoves === 3){
+			if(board[1][1].getValue() === 'O'){
+				if(board[0][0].getValue() === 'X'){
+					if(board[0][1].getValue() === 0) return [0,1];
+					else if(board[1][0].getValue() === 0) return [1,0];
+				} else if(board[2][2].getValue() === 'X'){
+					if(board[1][2].getValue() === 0) return [1,2];
+					else if(board[2][1].getValue() === 0) return [2,1];
+				} else if(board[0][1].getValue() === 'X') {
+					if(board[0][0].getValue() === 0) return [0,0];
+					else return [2,2];
+				} else if(board[2][1].getValue() === 'X') {
+					if(board[2][2].getValue() === 0) return [2,2];
+					else return [0,0];
+				} else if(board[1][0].getValue() === 'X') {
+					if(board[0][0].getValue() === 0) return [0,0];
+					else return [2,2];
+				} else if(board[1][2].getValue() === 'X') {
+					if(board[2][2].getValue() === 0) return [2,2];
+					else return [0,0];
+				}
+			} else if(board[2][0].getValue()===0) return [2,0];
+			else if(board[0][0].getValue()===0) return [0,0];
+			else if(board[2][2].getValue()===0) return [2,2];
+			else {
+				if(board[2][2].getValue()==='O' && board[2][0].getValue()==='O') return [2,1];
+				else return [1,0];
+			}
+		} else if(validMoves === 1){
+			for(let i=0;i<=2;i++){
+				for(let j=0; j<=2;j++){
+					if(board[i][j].getValue()===0) return [i,j];
+				}
+			}
+		}
+	
+		return [0,0];
+	} else if(startingPosition === 4){
+		if(validMoves === 7){
+			if(board[1][1].getValue() !== 0) return [0,0];
+			else {
+				if(board[2][1].getValue()===0 && board[2][0].getValue()===0) return [2,0];
+				else return  [0,2];
+			}
+		} else if(validMoves === 5){
+			if(board[1][1].getValue() === 'O' && board[0][0].getValue() === 'X') {
+				if(board[0][2].getValue() === 'O') return[2,0];
+				else if(board[2][0].getValue() === 'O') return [0,2];
+				else if(board[0][1].getValue() === 'O') return [2,1];
+				else if(board[2][1].getValue() === 'O') return [0,1];
+				else if(board[1][0].getValue() === 'O') return [1,2];
+				else if(board[1][2].getValue() === 'O') return [1,0];
+			} else {
+				if(board[0][2].getValue() === 'X'){
+					if(board[1][2].getValue() === 0) return [1,2];
+					else return [1,1];
+				} else if(board[2][0].getValue() === 'X'){
+					if(board[2][1].getValue() === 0) return [2,1];
+					else return [1,1];
+				}//
+			}
+		} else if(validMoves === 3){
+			if(board[1][1].getValue() === 'O'){
+				if(board[0][2].getValue() === 'X'){
+					if(board[1][2].getValue() === 0) return [1,2];
+					else if(board[0][1].getValue() === 0) return [0,1];
+				} else if(board[2][0].getValue() === 'X'){
+					if(board[1][0].getValue() === 0) return [1,0];
+					else if(board[2][1].getValue() === 0) return [2,1];
+				} else if(board[0][1].getValue() === 'X') {
+					if(board[0][2].getValue() === 0) return [0,2];
+					else return [2,0];
+				} else if(board[2][1].getValue() === 'X') {
+					if(board[2][0].getValue() === 0) return [2,0];
+					else return [0,2];
+				} else if(board[1][0].getValue() === 'X') {
+					if(board[2][0].getValue() === 0) return [2,0];
+					else return [0,2];
+				} else if(board[1][2].getValue() === 'X') {
+					if(board[0][2].getValue() === 0) return [0,2];
+					else return [2,0];
+				}
+			} else if(board[2][0].getValue()===0) return [2,0];
+			else if(board[0][2].getValue()===0) return [0,2];
+			else if(board[0][0].getValue()===0) return [0,0];
+			else {
+				if(board[0][2].getValue()==='O' && board[0][0].getValue()==='O') return [0,1];
+				else return [1,0];
+			}
+		} else if(validMoves === 1){
+			for(let i=0;i<=2;i++){
+				for(let j=0; j<=2;j++){
+					if(board[i][j].getValue()===0) return [i,j];
+				}
+			}
+		}
+	
+		return [0,0];
+	}
 }
